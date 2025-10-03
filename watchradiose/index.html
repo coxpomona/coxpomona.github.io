@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html lang="sv">
 <head>
     <meta charset="UTF-8">
@@ -105,7 +105,7 @@
             </div>
         </section>
         
-        <!-- Sektion 3: Registrering för Betatest - UPPDATERAD UTAN GMAIL-FOKUS -->
+        <!-- Sektion 3: Registrering för Betatest -->
         <section class="section-card bg-indigo-50 border-indigo-200">
             <h2 class="text-3xl font-semibold mb-4 text-indigo-600 border-b pb-2 border-indigo-200">1. Anmäl din e-postadress här</h2>
             <p class="mb-6 text-gray-700">Fyll i formuläret nedan. Vi behöver den e-postadress som är kopplad till ditt Google Play-konto på klockan för att lägga till dig i betagruppen. Det är viktigt att du använder rätt konto för att testinbjudan ska fungera.</p>
@@ -139,10 +139,10 @@
             <div class="mb-8 p-4 border-l-4 border-indigo-400 bg-gray-50 rounded-lg">
                 <h3 class="text-xl font-semibold mb-3 text-gray-700">WatchRadioSE - Vad appen gör</h3>
                 <ul class="list-disc list-inside space-y-2 ml-4 text-gray-700">
-                    <li><span class="highlight">Helt fristående:</span> Njut av radio utan att ha din telefon i närheten. Anslut till LTE-nätet eller Wi-Fi direkt från din klocka.</li>
-                    <li><span class="highlight">SR-strömmar:</span> Få tillgång till populära kanaler som P1, P2, P3, P4-kanaler och många fler som erbjuds via Sveriges Radios webbströmmar.</li>
-                    <li><span class="highlight">Användarvänlig:</span> Ett intuitivt och tydligt gränssnitt, designat specifikt för den runda klockskärmen.</li>
-                    <li><span class="highlight">Teknisk justering:</span> Justera enkelt bitrate (32, 96, 128, 320 kbps) och buffertstorlek (Låg, Normal, Hög) direkt i appen för att optimera ljudkvalitet och prestanda.</li>
+                    <li>Helt fristående: Njut av radio utan att ha din telefon i närheten. Anslut till LTE-nätet eller Wi-Fi direkt från din klocka.</li>
+                    <li>SR-strömmar: Få tillgång till populära kanaler som P1, P2, P3, P4-kanaler och många fler som erbjuds via Sveriges Radios webbströmmar.</li>
+                    <li>Användarvänlig: Ett intuitivt och tydligt gränssnitt, designat specifikt för den runda klockskärmen.</li>
+                    <li>Teknisk justering: Justera enkelt bitrate (32, 96, 128, 320 kbps) och buffertstorlek (Låg, Normal, Hög) direkt i appen för att optimera ljudkvalitet och prestanda.</li>
                 </ul>
             </div>
 
@@ -151,9 +151,9 @@
                 <h3 class="text-xl font-semibold mb-3 text-gray-700">Fokusområden under Betatestning</h3>
                 <p class="mb-4 text-gray-700">Vi behöver specifikt feedback för att säkerställa högsta kvalitet innan lansering. De viktigaste områdena är:</p>
                 <ol class="list-decimal list-inside space-y-2 ml-4">
-                    <li><span class="font-medium">Stabilitet och kraschrapporter.</span></li>
-                    <li><span class="font-medium">LTE/Wi-Fi-anslutning:</span> Hur väl hanterar appen växlingar mellan nätverk och anslutningsavbrott?</li>
-                    <li><span class="font-medium">Gränssnittsflöde:</span> Är navigeringen på den lilla skärmen intuitiv och effektiv?</li>
+                    <li>Stabilitet och kraschrapporter.</li>
+                    <li>LTE/Wi-Fi-anslutning: Hur väl hanterar appen växlingar mellan nätverk och anslutningsavbrott?</li>
+                    <li>Gränssnittsflöde: Är navigeringen på den lilla skärmen intuitiv och effektiv?</li>
                 </ol>
             </div>
              <p class="mt-8 text-sm text-gray-500">Observera: WatchRadioSE är en oberoende strömningsklient och har ingen officiell koppling till Sveriges Radio.</p>
@@ -173,68 +173,86 @@
         const submitBtn = document.getElementById('submitBtn');
         const alertDiv = document.getElementById('alert');
         
- 
+        // ⬇️⬇️ DITT GOOGLE APPS SCRIPT URL ⬇️⬇️
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwOcHFzweHmXVXXlhyfSk1jnCJ4Ijvsm4J8QeoCwBuZNTPs2ZSpOUBYtSF656hx3s4q-g/exec';
         
+        // Funktion för att hantera retry med exponential backoff (1s, 2s, 4s för nätverksfel)
+        async function fetchWithRetry(url, options, retries = 3) {
+            for (let i = 0; i < retries; i++) {
+                try {
+                    const response = await fetch(url, options);
+                    
+                    // Skriptet returnerar nu TEXT (HtmlService) som innehåller en JSON-sträng.
+                    const responseText = await response.text();
+                    
+                    let result;
+                    try {
+                        // Försöker parsa den inkommande texten som JSON
+                        result = JSON.parse(responseText);
+                    } catch (e) {
+                        // Om svaret inte är giltig JSON, hantera det som ett allvarligt skriptfel
+                        throw new Error("Skriptet returnerade ogiltigt svar. Kontrollera skriptloggar.");
+                    }
+
+                    // Kontrollerar om HTTP-statusen är OK och om vår egen 'success'-flagga finns
+                    if (!response.ok || result.success === undefined) {
+                        throw new Error(result.message || 'Ett fel uppstod vid inlämningen. Se skriptloggar.');
+                    }
+                    return result; // Returnera det parsade resultatet direkt
+                } catch (error) {
+                    if (i < retries - 1) {
+                        // Vänta exponentiellt längre innan nästa försök
+                        const delay = Math.pow(2, i) * 1000;
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                    } else {
+                        throw error;
+                    }
+                }
+            }
+        }
+
         form.addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            // Visa laddningsstatus
             submitBtn.disabled = true;
             submitBtn.textContent = 'Skickar anmälan...';
             alertDiv.style.display = 'none';
             
-            // Hämta formulärdata
+            // 1. Förbered data som URL-kodat formulärdata
             const formData = new FormData(form);
-            const data = {
-                name: formData.get('name'),
-                email: formData.get('email'),
-                message: formData.get('message')
-            };
+            const urlSearchParams = new URLSearchParams(formData);
+            const encodedData = urlSearchParams.toString(); // Skickar data i formatet name=X&email=Y
             
-            // Funktion för att hantera retry med exponential backoff
-            async function fetchWithRetry(url, options, retries = 3) {
-                for (let i = 0; i < retries; i++) {
-                    try {
-                        const response = await fetch(url, options);
-                        if (!response.ok) {
-                             // Försöker läsa JSON-felmeddelande om det finns
-                            const errorText = await response.text();
-                            throw new Error(`Serverfel (${response.status}): ${errorText.substring(0, 100)}...`);
-                        }
-                        return response;
-                    } catch (error) {
-                        if (i < retries - 1) {
-                            const delay = Math.pow(2, i) * 1000; // 1s, 2s, 4s...
-                            await new Promise(resolve => setTimeout(resolve, delay));
-                        } else {
-                            throw error;
-                        }
-                    }
-                }
+            // Validera e-postfältet innan skickning
+            if (!formData.get('email')) {
+                showAlert('E-postadress är obligatorisk.', 'bg-yellow-100 text-yellow-700 border border-yellow-300');
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Skicka in min e-postadress';
+                return;
             }
 
             try {
-                const response = await fetchWithRetry(SCRIPT_URL, {
+                // 2. Använd fetchWithRetry med Content-Type för URL-encodat formulär
+                const result = await fetchWithRetry(SCRIPT_URL, {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json',
+                        // Detta är Content-Type som Apps Script förväntar sig för e.parameter
+                        'Content-Type': 'application/x-www-form-urlencoded',
                     },
-                    body: JSON.stringify(data)
+                    body: encodedData 
                 });
-                
-                const result = await response.json();
                 
                 if (result.success) {
                     showAlert('Tack för din anmälan! Din e-postadress registreras nu i Google Play Console. Du kommer att få ett mejl från Google med instruktioner.', 'bg-green-100 text-green-700 border border-green-300');
                     form.reset(); // Rensa formuläret
                 } else {
-                    // Om skriptet svarade men hade en egen felhantering
+                    // Om skriptet svarade med success: false
                     throw new Error(result.message || 'Ett oväntat fel uppstod vid inlämningen.');
                 }
                 
             } catch (error) {
-                showAlert('Ett tekniskt fel uppstod. Kontrollera din URL för Google Apps Script eller försök igen senare. Fel: ' + error.message, 'bg-red-100 text-red-700 border border-red-300');
+                // Generiskt felmeddelande
+                showAlert('Ett fel uppstod. Kontrollera Google Apps Script Loggar/Publicering. Fel: ' + error.message, 'bg-red-100 text-red-700 border border-red-300');
             } finally {
                 submitBtn.disabled = false;
                 submitBtn.textContent = 'Skicka in min e-postadress';
