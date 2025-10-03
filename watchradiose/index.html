@@ -1,261 +1,180 @@
-<!DOCTYPE html>
+
 <html lang="sv">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WatchRadioSE - Fristående Radio för Wear OS</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Open+Sans:wght=400;600&display=swap" rel="stylesheet">
+    <title>WatchRadioSE - Beta & Utveckling</title>
+    <!-- Laddar Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Grundläggande reset och GitHub-liknande styling */
+        /* Anpassad styling för en ren, teknisk känsla */
         body {
-            font-family: 'Open Sans', sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: #f6f8fa; /* Lätt grå, liknande GitHub:s bakgrund */
-            color: #24292e; /* Mörk textfärg */
-            scroll-behavior: smooth;
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fb; /* Ljusare bakgrund */
+            color: #1f2937; /* Mörkgrå text */
         }
         .container {
-            max-width: 960px;
-            margin: 0 auto;
-            padding: 20px;
+            max-width: 1024px;
         }
-        header {
+        .section-card {
             background-color: #ffffff;
-            padding: 20px 0;
-            border-bottom: 1px solid #e1e4e8;
-            text-align: center;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            padding: 1.5rem 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
         }
-        header .logo {
-            max-width: 100px;
+        .header-bg {
+            background-color: #10172a; /* Mörk, teknisk header */
+        }
+        .highlight {
+            color: #10b981; /* Grön accentfärg för viktiga detaljer */
+            font-weight: 600;
+        }
+        /* Styling för den specifika bilden */
+        .watch-preview-img {
+            max-width: 100%;
             height: auto;
-            margin-bottom: 10px;
+            border-radius: 0.75rem; /* rounded-xl */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
         }
-        header h1 {
-            font-family: 'Roboto', sans-serif;
-            font-weight: 700;
-            font-size: 2.5em;
-            margin: 0;
-            color: #0366d6; /* GitHub blå */
+        .watch-preview-img:hover {
+             transform: scale(1.02);
         }
-        header p {
-            font-size: 1.1em;
-            color: #586069;
-        }
-        .section {
-            background-color: #ffffff;
-            border: 1px solid #e1e4e8;
-            border-radius: 6px;
-            padding: 30px;
-            margin-top: 30px;
-            box-shadow: 0 1px 0 rgba(27,31,35,0.04);
-        }
-        .section h2 {
-            font-family: 'Roboto', sans-serif;
-            font-weight: 600;
-            font-size: 2em;
-            color: #0366d6;
-            border-bottom: 1px solid #eaecef;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-        }
-        .text-content p, .text-content ul, .text-content ol {
-            font-size: 1em;
-            color: #24292e;
-        }
-        .text-content ul, .text-content ol {
-            margin-left: 25px;
-            margin-bottom: 1em;
-        }
-        .text-content ul li, .text-content ol li {
-            margin-bottom: 8px;
-        }
-        .image-center {
-            text-align: center;
-            margin: 30px 0;
-        }
-        .image-center img {
-            max-width: 80%;
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-
-        /* Formulär-styling (integrerad från din kod) */
-        #contactForm {
-            max-width: 500px;
-            margin: 20px auto; /* Centrera formuläret inom sektionen */
-            padding: 0;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 600;
-            color: #24292e;
-        }
-        .form-group input[type="email"],
-        .form-group input[type="text"],
-        .form-group textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #e1e4e8;
-            border-radius: 6px;
-            box-sizing: border-box; /* Inkludera padding i bredden */
-            font-family: 'Open Sans', sans-serif;
-            font-size: 1em;
-        }
-        button[type="submit"] {
-            background-color: #2ea44f; /* GitHub grön */
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 1.1em;
-            font-weight: 600;
-            transition: background-color 0.2s ease;
-        }
-        button[type="submit"]:hover {
-            background-color: #2c974b;
-        }
-        button[type="submit"]:disabled {
-            background-color: #ccc; /* Disabled state */
-            cursor: not-allowed;
-        }
-        .alert {
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 4px;
-            display: none;
-            text-align: center; /* Centrera meddelanden */
-        }
-        .alert.success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-        .alert.error {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-
-
-        footer {
-            text-align: center;
-            padding: 30px 0;
-            color: #586069;
-            font-size: 0.9em;
-            margin-top: 40px;
-            border-top: 1px solid #e1e4e8;
-        }
-        footer a {
-            color: #0366d6;
-            text-decoration: none;
-        }
-        footer a:hover {
-            text-decoration: underline;
+        /* Responsivitet för bild */
+        @media (min-width: 768px) {
+            .watch-img-container {
+                max-width: 450px;
+            }
         }
     </style>
 </head>
-<body>
+<body class="antialiased">
 
-    <header>
-        <div class="container">
-            <img src="watchradiose_icon" alt="WatchRadioSE Logo" class="logo">
-            <h1>WatchRadioSE</h1>
-            <p>Fristående radio för Wear OS. Strömma Sveriges Radios kanaler utan telefon!</p>
+    <!-- Header / Banner -->
+    <header class="header-bg text-white py-12">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-5xl font-extrabold mb-2 tracking-tight">WatchRadioSE</h1>
+            <p class="text-xl font-light opacity-80">Wear OS-app för fristående radioströmning - Vi söker testare!</p>
         </div>
     </header>
 
-    <main class="container">
+    <main class="container mx-auto px-4 py-8 md:py-12">
 
-        <section class="section">
-            <h2>Om WatchRadioSE</h2>
-            <div class="text-content">
-                <p>Upplev friheten med <strong>WatchRadioSE</strong> – din nya följeslagare för radio på handleden! Glöm telefonen hemma och strömma dina favoritkanaler från Sveriges Radio direkt på din Wear OS-smartklocka. WatchRadioSE ger dig oberoende tillgång till live-webbströmmar över LTE eller Wi-Fi, perfekt för löprundan, gymmet eller bara en stunds avkoppling.</p>
-            </div>
-            <div class="image-center">
-                <img src="watchradiose_funktionsbild.png" alt="WatchRadioSE på Wear OS klocka">
+        <!-- NY BILD-POSITION: Direkt under headern, i hel brädd -->
+        <div class="flex justify-center w-full mb-8">
+            <img src="https://coxpomona.github.io/watchradiose/watchradiose_funktionsbild.png" 
+                 alt="Skärmdumpar av WatchRadioSE-appen på en Wear OS-klocka" 
+                 class="watch-preview-img w-full max-w-2xl">
+        </div>
+
+        <!-- Sektion 1: Kort sammanfattning (Huvudentrén) -->
+        <section class="section-card bg-white p-6">
+            <!-- Text Summary block (nu i hel bredd) -->
+            <div class="mb-6">
+                <h2 class="text-3xl font-bold mb-3 text-indigo-700">Frihet på Handleden: Radio utan Telefon</h2>
+                <p class="text-xl text-gray-700 leading-relaxed">
+                    WatchRadioSE är en helt fristående Wear OS-app som låter dig strömma svenska radiokanaler (via SR:s öppna webbströmmar) direkt på klockan, över LTE eller Wi-Fi.
+                </p>
+                <p class="mt-6 font-semibold text-red-600 border-t pt-4">
+                    <span class="text-2xl block mb-2">Hjälp oss lansera!</span>
+                    Vi behöver aktiva betatestare för att uppfylla Google Play Consoles krav och möjliggöra den publika lanseringen. Din feedback är avgörande.
+                </p>
             </div>
         </section>
 
-        <section class="section">
-            <h2>Varför WatchRadioSE?</h2>
-            <div class="text-content">
-                <ul>
-                    <li><strong>Helt fristående:</strong> Njut av radio utan att ha din telefon i närheten. Anslut till LTE-nätet eller Wi-Fi direkt från din klocka.</li>
-                    <li><strong>Tillgång till Sveriges Radios strömmar:</strong> Få tillgång till populära kanaler som P1, P2, P3, P4-kanaler och många fler som erbjuds via Sveriges Radios webbströmmar.</li>
-                    <li><strong>Personliga favoriter:</strong> Anpassa din upplevelse! Välj enkelt ut och visa endast dina favoritkanaler på huvudskärmen för snabb och smidig åtkomst.</li>
-                    <li><strong>Optimerad för Wear OS:</strong> Ett intuitivt och tydligt gränssnitt, designat specifikt för den runda klockskärmen, gör det enkelt att navigera och byta kanal med ett tryck.</li>
-                    <li><strong>Anpassa din lyssning:</strong> Justera enkelt bitrate (32, 96, 128, 320 kbps) och buffertstorlek (Låg, Normal, Hög) direkt i appen för att optimera ljudkvalitet och prestanda efter dina preferenser och nätverksanslutning.</li>
-                    <li><strong>Enkel hantering:</strong> Starta, pausa och byt kanal direkt från huvudskärmen med stora och tydliga kontroller.</li>
+        <!-- Sektion 2: Huvudpresentation/Pitch -->
+        <section class="section-card">
+            <h2 class="text-2xl font-semibold mb-4 text-gray-800 border-b pb-2 border-gray-200">Kritiskt Behov: Testare sökes!</h2>
+            <div class="text-gray-700 text-lg space-y-4">
+                <p>Appen är utvecklad för att spela direktströmningar av radiokanaler från Sveriges Radio direkt på din klocka, perfekt för löprundan eller när du vill ha radion nära till hands utan att behöva ta fram mobilen.</p>
+                <p class="font-bold text-red-600">För att kunna publicera appen på Google Play Store kräver Google att vi har minst 12 aktiva testare som behåller appen i 14 dagar.</p>
+                
+                <h3 class="text-xl font-semibold mt-6 mb-2 text-indigo-700">Så går du med i betatestet:</h3>
+                <ol class="list-decimal list-inside space-y-2 ml-4">
+                    <li>Fyll i din e-postadress i formuläret nedan. Vi använder den för att lägga till dig som testare i Google Play Console.</li>
+                    <li>Klicka på testlänken när du har fått bekräftelse, eller använd den direkt: 
+                        <a href="https://play.google.com/apps/testing/com.watchradiose.radio.wearos" target="_blank" class="text-indigo-600 hover:underline font-medium break-all">
+                            https://play.google.com/apps/testing/com.watchradiose.radio.wearos
+                        </a>
+                    </li>
+                    <li>När du har gått med via länken kan du ladda ner WatchRadioSE via Play Store på din Wear OS-klocka.</li>
+                </ol>
+                <p class="mt-6">Stort tack på förhand för hjälpen! Din insats är vad som gör en publik lansering möjlig.</p>
+            </div>
+        </section>
+        
+        <!-- Sektion 3: Registrering för Betatest - UPPDATERAD UTAN GMAIL-FOKUS -->
+        <section class="section-card bg-indigo-50 border-indigo-200">
+            <h2 class="text-3xl font-semibold mb-4 text-indigo-600 border-b pb-2 border-indigo-200">1. Anmäl din e-postadress här</h2>
+            <p class="mb-6 text-gray-700">Fyll i formuläret nedan. Vi behöver den e-postadress som är kopplad till ditt Google Play-konto på klockan för att lägga till dig i betagruppen. Det är viktigt att du använder rätt konto för att testinbjudan ska fungera.</p>
+            
+            <form id="betaSignupForm" class="max-w-xl mx-auto p-4 bg-white rounded-lg shadow-lg">
+                <div class="mb-4">
+                    <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Ditt namn (Frivilligt)</label>
+                    <input type="text" id="name" name="name" placeholder="Förnamn Efternamn" class="w-full p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+                <div class="mb-4">
+                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">E-postadress (Obligatoriskt för testning)*</label>
+                    <input type="email" id="email" name="email" placeholder="ditt.google.konto@mail.com" required class="w-full p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500">
+                    <p class="mt-1 text-xs text-gray-500">Måste vara den e-postadress som är kopplad till ditt Google Play-konto på din Wear OS-klocka.</p>
+                </div>
+                <div class="mb-6">
+                    <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Meddelande/Klockmodell (Frivilligt)</label>
+                    <textarea id="message" name="message" rows="3" placeholder="T.ex. 'Jag testar på en Samsung Galaxy Watch 5 Pro' eller andra kommentarer." class="w-full p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"></textarea>
+                </div>
+                <button type="submit" id="submitBtn" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-md transition duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                    Skicka in min e-postadress
+                </button>
+            </form>
+            <div id="alert" class="alert mt-4 p-3 text-sm rounded-md" style="display: none;"></div>
+        </section>
+
+        <!-- Sektion 4: Detaljerad information (De gamla "säljande" delarna) -->
+        <section class="section-card mt-12">
+            <h2 class="text-3xl font-bold mb-6 text-gray-800 border-b pb-3 border-gray-300">Detaljerad Projektinformation</h2>
+
+            <!-- Projektöversikt (Gammal Sektion 2) -->
+            <div class="mb-8 p-4 border-l-4 border-indigo-400 bg-gray-50 rounded-lg">
+                <h3 class="text-xl font-semibold mb-3 text-gray-700">WatchRadioSE - Vad appen gör</h3>
+                <ul class="list-disc list-inside space-y-2 ml-4 text-gray-700">
+                    <li><span class="highlight">Helt fristående:</span> Njut av radio utan att ha din telefon i närheten. Anslut till LTE-nätet eller Wi-Fi direkt från din klocka.</li>
+                    <li><span class="highlight">SR-strömmar:</span> Få tillgång till populära kanaler som P1, P2, P3, P4-kanaler och många fler som erbjuds via Sveriges Radios webbströmmar.</li>
+                    <li><span class="highlight">Användarvänlig:</span> Ett intuitivt och tydligt gränssnitt, designat specifikt för den runda klockskärmen.</li>
+                    <li><span class="highlight">Teknisk justering:</span> Justera enkelt bitrate (32, 96, 128, 320 kbps) och buffertstorlek (Låg, Normal, Hög) direkt i appen för att optimera ljudkvalitet och prestanda.</li>
                 </ul>
             </div>
-        </section>
 
-        <section class="section">
-            <h2>Så fungerar det:</h2>
-            <div class="text-content">
-                <ol>
-                    <li>Ladda ner och öppna WatchRadioSE på din Wear OS-klocka.</li>
-                    <li>Välj dina favoritkanaler i inställningarna för att de ska visas på huvudskärmen.</li>
-                    <li>Välj önskad kanal och börja lyssna!</li>
-                    <li>Justera bitrate och buffert för bästa upplevelse.</li>
+            <!-- Testarens Roll (Gammal Sektion 3) -->
+            <div class="p-4 border-l-4 border-red-400 bg-gray-50 rounded-lg">
+                <h3 class="text-xl font-semibold mb-3 text-gray-700">Fokusområden under Betatestning</h3>
+                <p class="mb-4 text-gray-700">Vi behöver specifikt feedback för att säkerställa högsta kvalitet innan lansering. De viktigaste områdena är:</p>
+                <ol class="list-decimal list-inside space-y-2 ml-4">
+                    <li><span class="font-medium">Stabilitet och kraschrapporter.</span></li>
+                    <li><span class="font-medium">LTE/Wi-Fi-anslutning:</span> Hur väl hanterar appen växlingar mellan nätverk och anslutningsavbrott?</li>
+                    <li><span class="font-medium">Gränssnittsflöde:</span> Är navigeringen på den lilla skärmen intuitiv och effektiv?</li>
                 </ol>
             </div>
-        </section>
-
-        <section class="section">
-            <h2>Viktigt att notera:</h2>
-            <div class="text-content">
-                <p><strong>WatchRadioSE är en oberoende radioapp och har ingen officiell koppling till Sveriges Radio.</strong> Appen fungerar som en ljudströmningsklient som spelar upp de offentligt tillgängliga webbströmmarna från svenska radiostationer (som publiceras på exempelvis <a href="https://www.sverigesradio.se/artikel/lankar-till-ljudstrommar-for-alla-kanaler" target="_blank">sverigesradio.se</a>). Vi varken äger, kontrollerar eller ansvarar för innehållet i dessa strömmar. Vårt syfte är att erbjuda en bekväm plattform för dig att lyssna på radio via din smartklocka.</p>
-                <p>Ladda ner WatchRadioSE idag och njut av friheten med radio, direkt på din handled!</p>
-            </div>
-        </section>
-
-        <section class="section">
-            <h2>Anmäl dig som betatestare!</h2>
-            <p>Vill du vara bland de första att testa WatchRadioSE och hjälpa oss att förbättra appen? Anmäl ditt intresse nedan, så lägger vi till dig som testare i Google Play Console.</p>
-            
-            <form id="betaSignupForm"> <div class="form-group">
-                    <label for="name">Ditt namn (frivilligt):</label>
-                    <input type="text" id="name" name="name" placeholder="Förnamn Efternamn">
-                </div>
-                <div class="form-group">
-                    <label for="email">Din Gmail-adress (obligatoriskt för testning):*</label>
-                    <input type="email" id="email" name="email" placeholder="din.email@gmail.com" required>
-                    <small>Vi behöver din Gmail-adress för att lägga till dig som testare i Google Play Console.</small>
-                </div>
-                <div class="form-group">
-                    <label for="message">Meddelande (frivilligt):</label>
-                    <textarea id="message" name="message" rows="5" placeholder="Har du några frågor eller funderingar?"></textarea>
-                </div>
-                <button type="submit" id="submitBtn">Anmäl mig som testare</button>
-            </form>
-            <div id="alert" class="alert"></div>
+             <p class="mt-8 text-sm text-gray-500">Observera: WatchRadioSE är en oberoende strömningsklient och har ingen officiell koppling till Sveriges Radio.</p>
         </section>
 
     </main>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2023 WatchRadioSE. Alla rättigheter reserverade.</p>
-            <p><a href="privacy_policy.html">Integritetspolicy</a></p>
-            <p>Kontakt: <a href="mailto:coxpomona@tuta.io">coxpomona@tuta.io</a></p>
+    <footer class="text-center py-6 border-t mt-12 bg-gray-50">
+        <div class="container mx-auto px-4 text-gray-600 text-sm">
+            <p>&copy; 2025 WatchRadioSE. Ett oberoende utvecklingsprojekt.</p>
+            <p class="mt-1">Kontakt: <a href="mailto:coxpomona@tuta.io" class="text-indigo-600 hover:text-indigo-800 transition duration-150">coxpomona@tuta.io</a></p>
         </div>
     </footer>
 
     <script>
-        const form = document.getElementById('betaSignupForm'); // Använder det nya ID:t
+        const form = document.getElementById('betaSignupForm');
         const submitBtn = document.getElementById('submitBtn');
         const alertDiv = document.getElementById('alert');
         
         // ⬇️⬇️ DITT GOOGLE APPS SCRIPT URL ⬇️⬇️
+        // Denna URL måste peka mot ditt Google Apps Script för att formuläret ska fungera.
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwOcHFzweHmXVXXlhyfSk1jnCJ4Ijvsm4J8QeoCwBuZNTPs2ZSpOUBYtSF656hx3s4q-g/exec';
         
         form.addEventListener('submit', async function(e) {
@@ -263,7 +182,7 @@
             
             // Visa laddningsstatus
             submitBtn.disabled = true;
-            submitBtn.textContent = 'Skickar...';
+            submitBtn.textContent = 'Skickar anmälan...';
             alertDiv.style.display = 'none';
             
             // Hämta formulärdata
@@ -274,8 +193,30 @@
                 message: formData.get('message')
             };
             
+            // Funktion för att hantera retry med exponential backoff
+            async function fetchWithRetry(url, options, retries = 3) {
+                for (let i = 0; i < retries; i++) {
+                    try {
+                        const response = await fetch(url, options);
+                        if (!response.ok) {
+                             // Försöker läsa JSON-felmeddelande om det finns
+                            const errorText = await response.text();
+                            throw new Error(`Serverfel (${response.status}): ${errorText.substring(0, 100)}...`);
+                        }
+                        return response;
+                    } catch (error) {
+                        if (i < retries - 1) {
+                            const delay = Math.pow(2, i) * 1000; // 1s, 2s, 4s...
+                            await new Promise(resolve => setTimeout(resolve, delay));
+                        } else {
+                            throw error;
+                        }
+                    }
+                }
+            }
+
             try {
-                const response = await fetch(SCRIPT_URL, {
+                const response = await fetchWithRetry(SCRIPT_URL, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -286,23 +227,24 @@
                 const result = await response.json();
                 
                 if (result.success) {
-                    showAlert('Tack för din anmälan! Vi lägger till dig som testare inom kort.', 'success');
+                    showAlert('Tack för din anmälan! Din e-postadress registreras nu i Google Play Console. Du kommer att få ett mejl från Google med instruktioner.', 'bg-green-100 text-green-700 border border-green-300');
                     form.reset(); // Rensa formuläret
                 } else {
-                    throw new Error(result.message || 'Ett fel uppstod vid inlämningen.');
+                    // Om skriptet svarade men hade en egen felhantering
+                    throw new Error(result.message || 'Ett oväntat fel uppstod vid inlämningen.');
                 }
                 
             } catch (error) {
-                showAlert(error.message || 'Något gick fel. Vänligen försök igen.', 'error');
+                showAlert('Ett tekniskt fel uppstod. Kontrollera din URL för Google Apps Script eller försök igen senare. Fel: ' + error.message, 'bg-red-100 text-red-700 border border-red-300');
             } finally {
                 submitBtn.disabled = false;
-                submitBtn.textContent = 'Anmäl mig som testare';
+                submitBtn.textContent = 'Skicka in min e-postadress';
             }
         });
         
-        function showAlert(message, type) {
+        function showAlert(message, classes) {
             alertDiv.textContent = message;
-            alertDiv.className = `alert ${type}`; // Uppdaterar klassen
+            alertDiv.className = `alert mt-4 p-3 text-sm rounded-md ${classes}`; 
             alertDiv.style.display = 'block';
         }
     </script>
