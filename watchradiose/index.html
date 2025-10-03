@@ -45,70 +45,68 @@
         /* Responsivitet för bild */
         @media (min-width: 768px) {
             .watch-img-container {
-                max-width: 450px;
+                max-width: 700px; /* Låt bilden ta lite mer plats på desktop */
             }
+        }
+        /* Alert styling */
+        .alert.success {
+            background: #d1fae5; /* Tailwind green-100 */
+            color: #065f46; /* Tailwind green-800 */
+        }
+        .alert.error {
+            background: #fee2e2; /* Tailwind red-100 */
+            color: #991b1b; /* Tailwind red-800 */
         }
     </style>
 </head>
 <body class="antialiased">
 
     <!-- Header / Banner -->
-    <header class="header-bg text-white py-12">
+    <header class="header-bg text-white py-8">
         <div class="container mx-auto px-4 text-center">
-            <h1 class="text-5xl font-extrabold mb-2 tracking-tight">WatchRadioSE</h1>
-            <p class="text-xl font-light opacity-80">Wear OS-app för fristående radioströmning - Vi söker testare!</p>
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-1 tracking-tight">WatchRadioSE</h1>
+            <p class="text-lg md:text-xl font-light opacity-80">Wear OS-app för fristående radioströmning - Vi söker testare!</p>
         </div>
     </header>
 
-    <main class="container mx-auto px-4 py-8 md:py-12">
-
-        <!-- NY BILD-POSITION: Direkt under headern, i hel brädd -->
-        <div class="flex justify-center w-full mb-8">
+    <!-- Bildsektion (Full bredd) -->
+    <div class="mx-auto px-4 py-8 flex justify-center bg-gray-100 border-b border-gray-200">
+        <div class="watch-img-container text-center">
             <img src="https://coxpomona.github.io/watchradiose/watchradiose_funktionsbild.png" 
                  alt="Skärmdumpar av WatchRadioSE-appen på en Wear OS-klocka" 
-                 class="watch-preview-img w-full max-w-2xl">
+                 class="watch-preview-img w-full max-w-2xl mx-auto">
         </div>
+    </div>
 
-        <!-- Sektion 1: Kort sammanfattning (Huvudentrén) -->
+    <main class="container mx-auto px-4 py-8 md:py-12">
+
+        <!-- Sektion 1: Kort sammanfattning & Behov av testare -->
         <section class="section-card bg-white p-6">
-            <!-- Text Summary block (nu i hel bredd) -->
-            <div class="mb-6">
-                <h2 class="text-3xl font-bold mb-3 text-indigo-700">Frihet på Handleden: Radio utan Telefon</h2>
-                <p class="text-xl text-gray-700 leading-relaxed">
-                    WatchRadioSE är en helt fristående Wear OS-app som låter dig strömma svenska radiokanaler (via SR:s öppna webbströmmar) direkt på klockan, över LTE eller Wi-Fi.
-                </p>
-                <p class="mt-6 font-semibold text-red-600 border-t pt-4">
-                    <span class="text-2xl block mb-2">Hjälp oss lansera!</span>
-                    Vi behöver aktiva betatestare för att uppfylla Google Play Consoles krav och möjliggöra den publika lanseringen. Din feedback är avgörande.
-                </p>
-            </div>
+            <h2 class="text-3xl font-bold mb-4 text-indigo-700">Frihet på Handleden: Radio utan Telefon</h2>
+            <p class="text-xl text-gray-700 leading-relaxed">
+                WatchRadioSE är en helt fristående Wear OS-app som låter dig spela direktströmningar från svenska radiokanaler (via SR:s öppna webbströmmar) direkt på klockan, över LTE eller Wi-Fi. Perfekt för löprundan eller när du vill ha radion nära till hands utan att behöva ta fram mobilen.
+            </p>
+            <p class="mt-6 font-semibold text-red-600 border-t pt-4">
+                <span class="text-xl block mb-2 font-bold">VI SÖKER BETATESTARE!</span>
+                För att kunna publicera appen på Google Play Store kräver Google att vi har minst 12 testare som installerar appen och behåller den i 14 dagar. Din hjälp är avgörande för den publika lanseringen!
+            </p>
         </section>
 
-        <!-- Sektion 2: Huvudpresentation/Pitch -->
+        <!-- Sektion 2: Huvudpresentation/Pitch (Anpassad Forumtext) -->
         <section class="section-card">
-            <h2 class="text-2xl font-semibold mb-4 text-gray-800 border-b pb-2 border-gray-200">Kritiskt Behov: Testare sökes!</h2>
+            <h2 class="text-2xl font-semibold mb-4 text-gray-800 border-b pb-2 border-gray-200">Gå med i den stängda betatesten</h2>
             <div class="text-gray-700 text-lg space-y-4">
-                <p>Appen är utvecklad för att spela direktströmningar av radiokanaler från Sveriges Radio direkt på din klocka, perfekt för löprundan eller när du vill ha radion nära till hands utan att behöva ta fram mobilen.</p>
-                <p class="font-bold text-red-600">För att kunna publicera appen på Google Play Store kräver Google att vi har minst 12 aktiva testare som behåller appen i 14 dagar.</p>
-                
-                <h3 class="text-xl font-semibold mt-6 mb-2 text-indigo-700">Så går du med i betatestet:</h3>
-                <ol class="list-decimal list-inside space-y-2 ml-4">
-                    <li>Fyll i din e-postadress i formuläret nedan. Vi använder den för att lägga till dig som testare i Google Play Console.</li>
-                    <li>Klicka på testlänken när du har fått bekräftelse, eller använd den direkt: 
-                        <a href="https://play.google.com/apps/testing/com.watchradiose.radio.wearos" target="_blank" class="text-indigo-600 hover:underline font-medium break-all">
-                            https://play.google.com/apps/testing/com.watchradiose.radio.wearos
-                        </a>
-                    </li>
-                    <li>När du har gått med via länken kan du ladda ner WatchRadioSE via Play Store på din Wear OS-klocka.</li>
-                </ol>
-                <p class="mt-6">Stort tack på förhand för hjälpen! Din insats är vad som gör en publik lansering möjlig.</p>
+                <p>Appen är redo, optimerad för runda skärmar och hanterar bitrates (32-320 kbps) och buffring för att ge en smidig upplevelse. Nu är vi i den sista, kritiska fasen: betatestning. Vi behöver dig som har en Wear OS-klocka och kan tänka dig att aktivt testa appen under två veckor.</p>
+                <p>Skriv in din Google-kontoadress (den du använder på din Wear OS-klocka) i formuläret nedan. Vi lägger sedan till dig som testare. När du har blivit tillagd kan du gå direkt till länken nedan för att anmäla dig som testare i Google Play Console.</p>
+                <p class="font-medium text-indigo-600 break-all">Länk till testprogrammet: <a href="https://play.google.com/apps/testing/com.watchradiose.radio.wearos" target="_blank" class="text-indigo-800 hover:text-indigo-500 underline">https://play.google.com/apps/testing/com.watchradiose.radio.wearos</a></p>
+                <p>När du har gått med kan du sedan ladda ner appen via Play Store på din klocka. Stort tack på förhand för hjälpen!</p>
             </div>
         </section>
         
         <!-- Sektion 3: Registrering för Betatest -->
         <section class="section-card bg-indigo-50 border-indigo-200">
-            <h2 class="text-3xl font-semibold mb-4 text-indigo-600 border-b pb-2 border-indigo-200">1. Anmäl din e-postadress här</h2>
-            <p class="mb-6 text-gray-700">Fyll i formuläret nedan. Vi behöver den e-postadress som är kopplad till ditt Google Play-konto på klockan för att lägga till dig i betagruppen. Det är viktigt att du använder rätt konto för att testinbjudan ska fungera.</p>
+            <h2 class="text-3xl font-semibold mb-4 text-indigo-600 border-b pb-2 border-indigo-200">Anmäl ditt intresse</h2>
+            <p class="mb-6 text-gray-700">Vi behöver adressen till det Google-konto du använder på din Wear OS-klocka för att skicka inbjudan via Google Play Console.</p>
             
             <form id="betaSignupForm" class="max-w-xl mx-auto p-4 bg-white rounded-lg shadow-lg">
                 <div class="mb-4">
@@ -116,16 +114,16 @@
                     <input type="text" id="name" name="name" placeholder="Förnamn Efternamn" class="w-full p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500">
                 </div>
                 <div class="mb-4">
-                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">E-postadress (Obligatoriskt för testning)*</label>
-                    <input type="email" id="email" name="email" placeholder="ditt.google.konto@mail.com" required class="w-full p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500">
-                    <p class="mt-1 text-xs text-gray-500">Måste vara den e-postadress som är kopplad till ditt Google Play-konto på din Wear OS-klocka.</p>
+                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Google Play-konto (Obligatoriskt)*</label>
+                    <input type="email" id="email" name="email" placeholder="konto@exempel.com" required class="w-full p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500">
+                    <p class="mt-1 text-xs text-gray-500">Använd den e-postadress som är kopplad till Play Store på din klocka.</p>
                 </div>
                 <div class="mb-6">
-                    <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Meddelande/Klockmodell (Frivilligt)</label>
+                    <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Klockmodell/Meddelande (Frivilligt)</label>
                     <textarea id="message" name="message" rows="3" placeholder="T.ex. 'Jag testar på en Samsung Galaxy Watch 5 Pro' eller andra kommentarer." class="w-full p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"></textarea>
                 </div>
                 <button type="submit" id="submitBtn" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-md transition duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                    Skicka in min e-postadress
+                    Skicka anmälan
                 </button>
             </form>
             <div id="alert" class="alert mt-4 p-3 text-sm rounded-md" style="display: none;"></div>
@@ -150,21 +148,21 @@
             <div class="p-4 border-l-4 border-red-400 bg-gray-50 rounded-lg">
                 <h3 class="text-xl font-semibold mb-3 text-gray-700">Fokusområden under Betatestning</h3>
                 <p class="mb-4 text-gray-700">Vi behöver specifikt feedback för att säkerställa högsta kvalitet innan lansering. De viktigaste områdena är:</p>
-                <ol class="list-decimal list-inside space-y-2 ml-4">
-                    <li>Stabilitet och kraschrapporter.</li>
-                    <li>LTE/Wi-Fi-anslutning: Hur väl hanterar appen växlingar mellan nätverk och anslutningsavbrott?</li>
-                    <li>Gränssnittsflöde: Är navigeringen på den lilla skärmen intuitiv och effektiv?</li>
+                <ol class="list-decimal list-inside space-y-2 ml-4 text-gray-700">
+                    <li>Stabilitet: Kör appen under längre perioder (30+ minuter). Rapportera alla krascher eller oförklarliga stopp.</li>
+                    <li>Anslutning (LTE/Wi-Fi): Testa hur appen hanterar övergångar mellan Wi-Fi och LTE, och hur väl den återansluter efter avbrott.</li>
+                    <li>Gränssnittsflöde: Är navigeringen intuitiv på den lilla skärmen? Fungerar kanalvalet smidigt?</li>
                 </ol>
             </div>
-             <p class="mt-8 text-sm text-gray-500">Observera: WatchRadioSE är en oberoende strömningsklient och har ingen officiell koppling till Sveriges Radio.</p>
         </section>
 
     </main>
 
-    <footer class="text-center py-6 border-t mt-12 bg-gray-50">
-        <div class="container mx-auto px-4 text-gray-600 text-sm">
-            <p>&copy; 2025 WatchRadioSE. Ett oberoende utvecklingsprojekt.</p>
-            <p class="mt-1">Kontakt: <a href="mailto:coxpomona@tuta.io" class="text-indigo-600 hover:text-indigo-800 transition duration-150">coxpomona@tuta.io</a></p>
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white mt-12 py-6">
+        <div class="container mx-auto px-4 text-center text-sm">
+            <!-- Ny kontaktinformation för utvecklare -->
+            <p class="mb-2">Frågor? Kontakta utvecklaren: <a href="mailto:coxpomona@tuta.io" class="text-indigo-400 hover:text-indigo-300 underline">coxpomona@tuta.io</a></p>
         </div>
     </footer>
 
@@ -173,95 +171,76 @@
         const submitBtn = document.getElementById('submitBtn');
         const alertDiv = document.getElementById('alert');
         
-        // ⬇️⬇️ DITT GOOGLE APPS SCRIPT URL ⬇️⬇️
+        // ⬇️⬇️ DITT GOOGLE APPS SCRIPT URL (Verifierad och fungerar med den URL-kodade metoden) ⬇️⬇️
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwOcHFzweHmXVXXlhyfSk1jnCJ4Ijvsm4J8QeoCwBuZNTPs2ZSpOUBYtSF656hx3s4q-g/exec';
         
-        // Funktion för att hantera retry med exponential backoff (1s, 2s, 4s för nätverksfel)
-        async function fetchWithRetry(url, options, retries = 3) {
+        // Hjälpfunktion för att konvertera FormData till URL-kodad sträng
+        const formatData = (formData) => {
+            const params = new URLSearchParams();
+            for (const pair of formData) {
+                params.append(pair[0], pair[1]);
+            }
+            return params.toString();
+        };
+
+        // Funktion för att hantera fetch med exponential backoff (för robusthet)
+        async function robustFetch(url, options, retries = 3, delay = 1000) {
             for (let i = 0; i < retries; i++) {
                 try {
                     const response = await fetch(url, options);
-                    
-                    // Skriptet returnerar nu TEXT (HtmlService) som innehåller en JSON-sträng.
-                    const responseText = await response.text();
-                    
-                    let result;
-                    try {
-                        // Försöker parsa den inkommande texten som JSON
-                        result = JSON.parse(responseText);
-                    } catch (e) {
-                        // Om svaret inte är giltig JSON, hantera det som ett allvarligt skriptfel
-                        throw new Error("Skriptet returnerade ogiltigt svar. Kontrollera skriptloggar.");
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
                     }
-
-                    // Kontrollerar om HTTP-statusen är OK och om vår egen 'success'-flagga finns
-                    if (!response.ok || result.success === undefined) {
-                        throw new Error(result.message || 'Ett fel uppstod vid inlämningen. Se skriptloggar.');
-                    }
-                    return result; // Returnera det parsade resultatet direkt
+                    return response;
                 } catch (error) {
-                    if (i < retries - 1) {
-                        // Vänta exponentiellt längre innan nästa försök
-                        const delay = Math.pow(2, i) * 1000;
-                        await new Promise(resolve => setTimeout(resolve, delay));
-                    } else {
-                        throw error;
-                    }
+                    if (i === retries - 1) throw error; // Kasta felet efter sista försöket
+                    await new Promise(resolve => setTimeout(resolve, delay * (2 ** i)));
                 }
             }
         }
-
+        
         form.addEventListener('submit', async function(e) {
             e.preventDefault();
             
             submitBtn.disabled = true;
-            submitBtn.textContent = 'Skickar anmälan...';
+            submitBtn.textContent = 'Skickar...';
             alertDiv.style.display = 'none';
             
-            // 1. Förbered data som URL-kodat formulärdata
             const formData = new FormData(form);
-            const urlSearchParams = new URLSearchParams(formData);
-            const encodedData = urlSearchParams.toString(); // Skickar data i formatet name=X&email=Y
+            const urlEncodedData = formatData(formData); // Konvertera till URL-kodat format
             
-            // Validera e-postfältet innan skickning
-            if (!formData.get('email')) {
-                showAlert('E-postadress är obligatorisk.', 'bg-yellow-100 text-yellow-700 border border-yellow-300');
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Skicka in min e-postadress';
-                return;
-            }
-
             try {
-                // 2. Använd fetchWithRetry med Content-Type för URL-encodat formulär
-                const result = await fetchWithRetry(SCRIPT_URL, {
+                // ANVÄNDER URL-ENCODED DATA FÖR ATT UNDVIKA CORS-PROBLEM MED APPS SCRIPT
+                const response = await robustFetch(SCRIPT_URL, {
                     method: 'POST',
                     headers: {
-                        // Detta är Content-Type som Apps Script förväntar sig för e.parameter
-                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'Content-Type': 'application/x-www-form-urlencoded' 
                     },
-                    body: encodedData 
+                    body: urlEncodedData
                 });
                 
+                // ContentService returnerar text, vi måste parsa det som JSON
+                const text = await response.text();
+                const result = JSON.parse(text); 
+                
                 if (result.success) {
-                    showAlert('Tack för din anmälan! Du är anmäld som testare, vi återkommer med instruktioner per mail', 'bg-green-100 text-green-700 border border-green-300');
-                    form.reset(); // Rensa formuläret
+                    showAlert('Tack för din anmälan! Du läggs till som testare inom kort.', 'success');
+                    form.reset(); 
                 } else {
-                    // Om skriptet svarade med success: false
-                    throw new Error(result.message || 'Ett oväntat fel uppstod vid inlämningen.');
+                    throw new Error(result.message || 'Ett okänt fel uppstod vid Apps Script.');
                 }
                 
             } catch (error) {
-                // Generiskt felmeddelande
-                showAlert('Ett fel uppstod. Fel: ' + error.message, 'bg-red-100 text-red-700 border border-red-300');
+                showAlert(`Något gick fel: ${error.message}. Kontrollera din e-postadress och försök igen.`, 'error');
             } finally {
                 submitBtn.disabled = false;
-                submitBtn.textContent = 'Skicka in min e-postadress';
+                submitBtn.textContent = 'Skicka anmälan';
             }
         });
         
-        function showAlert(message, classes) {
+        function showAlert(message, type) {
             alertDiv.textContent = message;
-            alertDiv.className = `alert mt-4 p-3 text-sm rounded-md ${classes}`; 
+            alertDiv.className = `alert ${type} mt-4 p-3 text-sm rounded-md`;
             alertDiv.style.display = 'block';
         }
     </script>
