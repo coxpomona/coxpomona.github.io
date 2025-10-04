@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valfritt eSIM på Galaxy Watch</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chosen Palette: Warm Neutral with Teal Accent -->
+    <!-- Application Structure Plan: Appen är omstrukturerad till en enda, skrollbar sida. Denna design presenterar all information i en logisk ordning, från 'hur' (steg-för-steg-guiden) till 'varför' (fördelarna med Roamless), utan att kräva klick för att navigera mellan sektioner. Detta gör guiden lättare att följa linjärt och att skriva ut eller spara som PDF. Interaktiva element som kopieringsknappar och en hopfällbar felsökningssektion behålls för att förbättra användarvänligheten utan att komplicera layouten. -->
+    <!-- Visualization & Content Choices: Processen visualiseras genom en serie numrerade steg som presenteras vertikalt. Varje steg (Informationsmål: Instruera) har text och en stödjande bild (Presentationsmetod: Statisk lista). Fördelarna med Roamless (Mål: Informera) visas i ett tydligt kortformat. Rabattkoderna (Mål: Möjliggöra handling) har en kopieringsknapp (Interaktion: Klick för att kopiera). Metod: Ren HTML/Tailwind/JS. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+</head>
+<body class="bg-amber-50 text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-4xl">
+        <header class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-teal-800">Valfritt eSIM på Galaxy Watch</h1>
+            <p class="mt-2 text-lg text-gray-600">En komplett guide för att installera ett fristående eSIM.</p>
+        </header>
+
+        <div class="bg-white rounded-2xl shadow-lg p-6 sm:p-8 space-y-8">
+            
+            <!-- Del 1: Guide -->
+            <section id="installationsguide">
+                <h2 class="text-2xl font-bold text-teal-700 border-b-2 border-teal-200 pb-2 mb-4">Del 1: Installationsguide</h2>
+                 <p class="text-sm text-center bg-amber-100 text-amber-800 p-3 rounded-md mb-6">Denna guide visar hur du aktiverar en dold meny för att kunna skanna valfri QR-kod. Följ stegen noggrant.</p>
+                
+                <div class="space-y-8">
+                    <!-- Step 1 -->
+                    <div class="grid md:grid-cols-2 gap-6 items-center">
+                        <div>
+                            <h3 class="font-bold text-lg text-teal-700">Steg 1: Navigera till "Om Galaxy Wearable"</h3>
+                            <ol class="list-decimal list-inside mt-2 space-y-1 text-gray-600">
+                                <li>Öppna <strong>Galaxy Wearable</strong>-appen.</li>
+                                <li>Tryck på meny-ikonen (☰) uppe till vänster.</li>
+                                <li>Tryck på kugghjulet (⚙️) bredvid din klocka.</li>
+                                <li>Välj <strong>Om Galaxy Wearable</strong>.</li>
+                            </ol>
+                        </div>
+                        <img src="screenshot_esim5.jpg" alt="Skärmdump som visar 'Om Galaxy Wearable'" class="rounded-lg border shadow-sm mx-auto">
+                    </div>
+                    <!-- Step 2 -->
+                    <div class="grid md:grid-cols-2 gap-6 items-center">
+                        <div>
+                            <h3 class="font-bold text-lg text-teal-700">Steg 2: Aktivera dolda menyn</h3>
+                            <p class="text-gray-600 mt-2">På "Om Galaxy Wearable"-sidan, <strong>tryck upprepade gånger och snabbt</strong> på texten <strong>"Watch Manager"</strong> (ca 5-10 gånger) tills en ny meny dyker upp.</p>
+                        </div>
+                        <img src="screenshot_esi65.jpg" alt="Skärmdump som visar var man ska trycka" class="rounded-lg border shadow-sm mx-auto">
+                    </div>
+                    <!-- Step 3 -->
+                    <div class="grid md:grid-cols-2 gap-6 items-center">
+                       <div>
+                            <h3 class="font-bold text-lg text-teal-700">Steg 3: Gå till Esim Test</h3>
+                            <ol class="list-decimal list-inside mt-2 space-y-1 text-gray-600">
+                                <li>En skärm med namnet "Wearable Hidden Menu" visas. Tryck på <strong>Module Test</strong>.</li>
+                                <li>I nästa meny, tryck på <strong>Esim Test</strong>.</li>
+                            </ol>
+                        </div>
+                        <img src="screenshot_esim7.jpg" alt="Skärmdump som visar Esim Test" class="rounded-lg border shadow-sm mx-auto">
+                    </div>
+                    <!-- Step 4 -->
+                    <div class="grid md:grid-cols-2 gap-6 items-center">
+                       <div>
+                            <h3 class="font-bold text-lg text-teal-700">Steg 4: Slå på QR TestMode</h3>
+                            <p class="text-gray-600 mt-2">Du är nu inne i "Esim Test Interface". Tryck på <strong>QR TestMode</strong> för att ändra statusen till <strong>on</strong>.</p>
+                        </div>
+                        <img src="screenshot_esim8.jpg" alt="Skärmdump som visar QR TestMode" class="rounded-lg border shadow-sm mx-auto">
+                    </div>
+                    <!-- Step 5 -->
+                    <div class="grid md:grid-cols-2 gap-6 items-center">
+                       <div>
+                            <h3 class="font-bold text-lg text-teal-700">Steg 5: Lägg till ditt eSIM</h3>
+                             <ol class="list-decimal list-inside mt-2 space-y-1 text-gray-600">
+                                <li>Gå tillbaka till appens vanliga inställningar: <strong>Klockinställningar > Mobilavtal</strong>.</li>
+                                <li>Nu kan du lägga till ett abonnemang via QR-kod.</li>
+                                <li>Skanna koden från Roamless och följ stegen.</li>
+                                <li>Notera att du måste stänga på Roaming för att roamless ska fungera.</li>
+                            </ol>
+                        </div>
+                        <img src="screenshot_esim9.jpg" alt="Skärmdump som visar Roamless som aktivt avtal" class="rounded-lg border shadow-sm mx-auto">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Del 2: Roamless -->
+            <section id="roamless-info">
+                <h2 class="text-2xl font-bold text-teal-700 border-b-2 border-teal-200 pb-2 mb-4">Del 2: Allt om Roamless</h2>
+                <div>
+                    <h3 class="text-xl font-semibold text-teal-700 mb-2">Vad är Roamless?</h3>
+                    <p class="text-gray-600">Roamless är en global Pay-As-You-Go (PAYG) eSIM-tjänst. Istället för en fast månadskostnad betalar du bara för den data du faktiskt använder, vilket är perfekt för en smartklocka som förbrukar väldigt lite data.</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-4 text-center mt-6">
+                    <div class="bg-teal-50 p-4 rounded-lg">
+                        <div class="text-3xl mb-2">💰</div>
+                        <h3 class="font-bold">Billigare</h3>
+                        <p class="text-sm text-gray-600">Ca 120 kr för 5 GB, som kan räcka ett år på en smartklocka.</p>
+                    </div>
+                    <div class="bg-teal-50 p-4 rounded-lg">
+                        <div class="text-3xl mb-2">🔄</div>
+                        <h3 class="font-bold">Ingen bindningstid & förfallotid</h3>
+                        <p class="text-sm text-gray-600">Surfen du köper har ingen förfallotid, till skillnad från vanliga kontantkort där den ofta försvinner efter 30 dagar.</p>
+                    </div>
+                    <div class="bg-teal-50 p-4 rounded-lg">
+                        <div class="text-3xl mb-2">🌍</div>
+                        <h3 class="font-bold">Global täckning</h3>
+                        <p class="text-sm text-gray-600">Använd klockan utomlands utan extra kostnader.</p>
+                    </div>
+                </div>
+
+                <div class="mt-6 bg-amber-100 text-amber-900 p-4 rounded-lg border border-amber-200">
+                    <h3 class="font-bold text-lg mb-1">Viktigt att veta: Endast data</h3>
+                    <p class="text-sm">
+                        Detta är ett rent data-eSIM, vilket innebär att du <strong>inte kan ringa vanliga mobilsamtal</strong>.
+                    </p>
+                </div>
+
+                 <div class="mt-6">
+                    <h3 class="text-xl font-semibold text-teal-700 mb-3">Skaffa Roamless med rabatt</h3>
+                     <div class="space-y-3">
+                        <div class="bg-gray-100 p-3 rounded-lg flex justify-between items-center">
+                            <div>
+                                <p class="font-mono text-teal-800">TRAVELZD5</p>
+                                <p class="text-xs text-gray-500">Ger $5 gratis startkredit!</p>
+                            </div>
+                            <button class="copy-btn bg-teal-600 text-white text-xs font-bold py-1 px-3 rounded-md hover:bg-teal-700 transition-colors" data-code="TRAVELZD5">Kopiera</button>
+                        </div>
+                        <div class="bg-gray-100 p-3 rounded-lg flex justify-between items-center">
+                            <div>
+                                <p class="font-mono text-teal-800">KFVVUD3V</p>
+                                <p class="text-xs text-gray-500">Använd min referral-kod, så får vi 5$ var när du fyller på.</p>
+                            </div>
+                            <button class="copy-btn bg-teal-600 text-white text-xs font-bold py-1 px-3 rounded-md hover:bg-teal-700 transition-colors" data-code="KFVVUD3V">Kopiera</button>
+                        </div>
+                        <div class="bg-gray-100 p-3 rounded-lg flex justify-between items-center">
+                            <div>
+                                <p class="font-mono text-teal-800">ROAM25 / ROAM50 / ROAM75</p>
+                                <p class="text-xs text-gray-500">Använd vid påfyllning för mer rabatt.</p>
+                            </div>
+                            <button class="copy-btn bg-teal-600 text-white text-xs font-bold py-1 px-3 rounded-md hover:bg-teal-700 transition-colors" data-code="ROAM25">Kopiera</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 flex flex-col sm:flex-row gap-4">
+                    <a href="https://roamless.com/esim-region/europe-esim" target="_blank" rel="noopener noreferrer" class="w-full text-center bg-teal-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-teal-700 transition-colors">
+                        Besök Roamless Hemsida
+                    </a>
+                    <a href="https://play.google.com/store/apps/details?id=com.roamless.roamless" target="_blank" rel="noopener noreferrer" class="w-full text-center bg-gray-700 text-white font-bold py-2 px-4 rounded-lg hover:bg-gray-800 transition-colors">
+                        Ladda ner appen (Google Play)
+                    </a>
+                </div>
+
+                <div class="mt-8 bg-teal-50 p-4 rounded-lg border border-teal-200 text-center">
+                    <p class="text-sm text-teal-900">
+                        Perfekt om du vill lyssna på radio på klockan, testa
+                        <a href="https://coxpomona.github.io/RadioWatchSE/" target="_blank" rel="noopener noreferrer" class="font-bold underline hover:text-teal-700">RadioWatchSE</a>.
+                    </p>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+<script>
+    document.querySelectorAll('.copy-btn').forEach(button => {
+        button.addEventListener('click', () => {
+            const codeToCopy = button.dataset.code;
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = codeToCopy;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            try {
+                document.execCommand('copy');
+                button.textContent = 'Kopierad!';
+                setTimeout(() => { button.textContent = 'Kopiera'; }, 2000);
+            } catch (err) {
+                console.error('Fallback: Oops, unable to copy', err);
+            }
+            document.body.removeChild(tempTextArea);
+        });
+    });
+</script>
+
+</body>
+</html>
